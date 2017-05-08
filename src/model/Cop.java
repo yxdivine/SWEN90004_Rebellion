@@ -2,10 +2,10 @@ package model;
 
 public class Cop extends Turtle {
 
-	public Cop(){
-		
+	public Cop() {
+
 	}
-	
+
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
@@ -20,7 +20,7 @@ public class Cop extends Turtle {
 
 	protected void init() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -5,12 +5,11 @@ public class Agent extends Turtle {
 	protected double hardship;
 	protected boolean active;
 	protected int jail_term;
-	
-	public Agent(){
+
+	public Agent() {
 		init();
 	}
-	
-	
+
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
