@@ -14,12 +14,15 @@ public class Runner {
 			System.out.print(">");
 			String s = scanner.nextLine();
 			String[] com = s.split(" ");
-			parse(com);
+			try {
+				parse(com);
+			} catch (Exception e) {
+				System.out.println(e.getClass().getName());
+			}
 		}
-
 	}
 
-	private static void parse(String[] c) {
+	private static void parse(String[] c) throws Exception{
 		switch (c[0]) {
 		case "exit":
 		case "quit":
@@ -37,10 +40,22 @@ public class Runner {
 		}
 		case "set": {
 			RebelParams.set(c[1], c[2]);
+			break;
+		}
+		case "go":{
+			rsys.go();
+			break;
+		}
+		case "step":{
+			rsys.step();
+			break;
+		}
+		case "help":{
+			//TODO print help message
+			break;
 		}
 		default: {
-			System.err.println("Unrecognized command \"" + c[0] + "\"");
-			System.out.println();
+			System.out.println("Unrecognized command \"" + c[0] + "\"");
 		}
 		}
 	}

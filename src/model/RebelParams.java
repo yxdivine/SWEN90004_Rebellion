@@ -24,13 +24,13 @@ public class RebelParams {
 
 	// the jail term
 	public static int max_jail_term = 30;
-	
-	//map size
+
+	// map size
 	public static int map_size = 40;
 
 	public static String stringify() {
 		String str = "params:\n";
-		str += "map_size\t"+map_size+"\n";
+		str += "map_size\t" + map_size + "\n";
 		str += "init_cop_dens\t" + init_cop_dens + "\n";
 		str += "init_agent_dens\t" + init_agent_dens + "\n";
 		str += "k\t\t" + k + "\n";
@@ -44,48 +44,46 @@ public class RebelParams {
 	}
 
 	public static void set(String arg, String val) {
-		try {
-			switch (arg) {
-			case "k": {
-				k = Double.parseDouble(val);
-				break;
-			}
-			case "init_cop_dens": {
-				init_cop_dens = Double.parseDouble(val);
-				break;
-			}
-			case "init_agent_dens": {
-				init_agent_dens = Double.parseDouble(val);
-				break;
-			}
-			case "threshold": {
-				threshold = Double.parseDouble(val);
-				break;
-			}
-			case "vision": {
-				vision = Double.parseDouble(val);
-				break;
-			}
-			case "gov_legit": {
-				gov_legit = Double.parseDouble(val);
-				break;
-			}
-			case "enable_move": {
-				enable_move = Boolean.parseBoolean(val);
-				break;
-			}
-			case "max_jail_term": {
-				max_jail_term = Integer.parseInt(val);
-				break;
-			}case "map_size":{
-				map_size = Integer.parseInt(val);
-				break;
-			}
-			}
-
-		} catch (java.lang.NumberFormatException e) {
-			System.err.println("invalid value");
-			System.out.println();
+		switch (arg) {
+		case "k": {
+			k = Double.parseDouble(val);
+			break;
+		}
+		case "init_cop_dens": {
+			init_cop_dens = Double.parseDouble(val);
+			break;
+		}
+		case "init_agent_dens": {
+			init_agent_dens = Double.parseDouble(val);
+			break;
+		}
+		case "threshold": {
+			threshold = Double.parseDouble(val);
+			break;
+		}
+		case "vision": {
+			vision = Double.parseDouble(val);
+			break;
+		}
+		case "gov_legit": {
+			gov_legit = Double.parseDouble(val);
+			break;
+		}
+		case "enable_move": {
+			enable_move = Boolean.parseBoolean(val);
+			break;
+		}
+		case "max_jail_term": {
+			max_jail_term = Integer.parseInt(val);
+			break;
+		}
+		case "map_size": {
+			map_size = Integer.parseInt(val);
+			break;
+		}
+		default: {
+			System.out.println("unrecognized param " + arg + "\n");
+		}
 		}
 	}
 
