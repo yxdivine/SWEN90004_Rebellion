@@ -94,11 +94,28 @@ public class RebelMap {
 		for (int i = 0; i < cops.size(); i++) {
 			Cop c = cops.get(i);
 			// move cop c
+			c.move();
 		}
 		// determine behaviour
+		for (int i = 0; i < agents.size(); i++) {
+			Agent a = agents.get(i);
+			if(!a.imprisoned()){
+				a.determine_behaviour();
+			}
+		}
 		// arrest active agents
+		for (int i = 0; i < cops.size(); i++) {
+			Cop c = cops.get(i);
+			// move cop c
+			c.enforce();
+		}
 		// update jail term
-
+		for (int i = 0; i < agents.size(); i++) {
+			Agent a = agents.get(i);
+			a.reduce_term();
+		}
+		Collections.shuffle(agents);
+		Collections.shuffle(cops);
 	}
 
 	public MapSlot findAEmpty(int x, int y) {
@@ -152,7 +169,12 @@ public class RebelMap {
 		}
 
 		Collections.shuffle(vlist);
-		return vlist.get(0);
+		if(vlist.isEmpty()){
+			return null;
+		}else{
+			return vlist.get(0);
+		}
+		
 
 	}
 
@@ -212,7 +234,21 @@ public class RebelMap {
 			y1 += mapsize;
 		}
 		return rmap.get(y1 * mapsize + x1);
-
 	}
-
+	
+	public String recordData(){
+		int jailed = 0;
+		int quiet = 0;
+		int active = 0;
+		for(Agent a:agents){
+			if(a.isActive()){
+				active++;
+			}else if(a.imprisoned()){
+				jailed++;
+			}else{
+				quiet++;
+			}
+		}
+		return quiet+"\t"+active+"\t"+jailed;
+	}
 }

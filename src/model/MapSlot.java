@@ -20,7 +20,13 @@ public class MapSlot {
 		}
 		return true;
 	}
-
+	
+	
+	public void moveTurtle(Turtle t, MapSlot neighbor){
+		content.remove(t);
+		neighbor.add(t);
+	}
+	
 	public void add(Turtle t) {
 		content.add(t);
 	}
@@ -48,7 +54,6 @@ public class MapSlot {
 				return "+";
 			}
 		}
-
 	}
 
 	public List<Turtle> getAll() {

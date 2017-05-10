@@ -32,11 +32,13 @@ public class Runner {
 		case "exit":
 		case "quit":
 		case "q": {
+			rsys.closeIO();
 			running = false;
 			break;
 		}
-		case "s":
-		case "setup": {
+		case "i":
+		case "init":
+		case "initialize": {
 			rsys = new RebelSystem();
 			break;
 		}
@@ -62,6 +64,7 @@ public class Runner {
 			rsys.chooseone();
 			break;
 		}
+		case "s":
 		case "step":{
 			rsys.step();
 			break;

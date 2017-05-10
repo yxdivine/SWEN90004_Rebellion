@@ -9,7 +9,7 @@ public class RebelParams {
 	public static boolean enable_move = true;
 
 	// government legitimacy
-	public static double gov_legit = 0.8;
+	public static double gov_legit = 0.82;
 
 	// vision range
 	public static double vision = 7.0;
@@ -21,7 +21,7 @@ public class RebelParams {
 	public static double init_agent_dens = 0.7;
 
 	// the constant k
-	public static double k = 0.1;
+	public static double k = 2.3;
 
 	// threshold of agent
 	public static double threshold = 0.1;
@@ -30,7 +30,7 @@ public class RebelParams {
 	public static int max_jail_term = 30;
 
 	// map size
-	public static int map_size = 10;
+	public static int map_size = 40;
 
 	public static String stringify() {
 		String str = "params:\n";
