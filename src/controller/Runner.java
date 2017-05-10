@@ -3,7 +3,11 @@ package controller;
 import java.util.Scanner;
 
 import model.*;
-
+/**
+ * The main class and cli
+ * @author Xinda Yu
+ *
+ */
 public class Runner {
 	public static boolean running = true;
 	public static RebelSystem rsys;
@@ -17,7 +21,8 @@ public class Runner {
 			try {
 				parse(com);
 			} catch (Exception e) {
-				System.out.println(e.getClass().getName());
+//				System.out.println(e.getClass().getName());
+				e.printStackTrace();
 			}
 		}
 	}
@@ -30,6 +35,7 @@ public class Runner {
 			running = false;
 			break;
 		}
+		case "s":
 		case "setup": {
 			rsys = new RebelSystem();
 			break;
@@ -46,12 +52,22 @@ public class Runner {
 			rsys.go();
 			break;
 		}
+		case "d":
+		case "display":{
+			rsys.display();
+			break;
+		}
+		case "c":
+		case "chooseone":{
+			rsys.chooseone();
+			break;
+		}
 		case "step":{
 			rsys.step();
 			break;
 		}
 		case "help":{
-			//TODO print help message
+			//TODO print useful messages
 			break;
 		}
 		default: {

@@ -1,5 +1,9 @@
 package model;
-
+/**
+ * global parameters
+ * @author Xinda Yu
+ *
+ */
 public class RebelParams {
 	// movement
 	public static boolean enable_move = true;
@@ -26,7 +30,7 @@ public class RebelParams {
 	public static int max_jail_term = 30;
 
 	// map size
-	public static int map_size = 40;
+	public static int map_size = 10;
 
 	public static String stringify() {
 		String str = "params:\n";

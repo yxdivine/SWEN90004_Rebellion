@@ -1,5 +1,10 @@
 package model;
-
+/**
+ * The class controlling the whole model
+ * 
+ * @author Xinda Yu
+ *
+ */
 public class RebelSystem {
 	protected int tick = 0;
 	
@@ -28,5 +33,15 @@ public class RebelSystem {
 		while(true){
 			step();
 		}
+	}
+
+
+	public void display() {
+		map.printMap();
+		
+	}
+	
+	public void chooseone(){
+		map.choose_one();
 	}
 }

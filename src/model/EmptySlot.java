@@ -1,6 +1,16 @@
 package model;
-
+/**
+ * class representing an empty patch
+ * @author Xinda Yu
+ *
+ */
 public class EmptySlot extends Turtle {
+
+	
+	
+	public EmptySlot(RebelMap mapref, MapSlot slotref) {
+		super(mapref,slotref);
+	}
 
 	@Override
 	public void move() {
@@ -12,12 +22,6 @@ public class EmptySlot extends Turtle {
 	public void update() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String symbol() {
-		// TODO Auto-generated method stub
-		return " ";
 	}
 
 }

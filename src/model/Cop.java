@@ -1,15 +1,18 @@
 package model;
-
+/**
+ * class representing cops
+ * @author Xinda Yu
+ *
+ */
 public class Cop extends Turtle {
 
-	public Cop() {
-		
+	public Cop(RebelMap mapref, MapSlot slotref) {
+		super(mapref,slotref);
 	}
 
 	@Override
 	public void move() {
 		
-
 	}
 
 	@Override
@@ -21,10 +24,5 @@ public class Cop extends Turtle {
 		
 	}
 
-	@Override
-	public String symbol() {
-		return "C";
-	}
-	
 
 }
