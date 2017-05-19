@@ -17,7 +17,7 @@ public class Agent extends Turtle {
 	protected boolean active;
 	protected int jail_term;
 
-	protected boolean chosen;
+	public boolean chosen;
 
 	List<Turtle> invision;
 

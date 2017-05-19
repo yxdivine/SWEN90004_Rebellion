@@ -42,6 +42,7 @@ public class Runner {
 			rsys = new RebelSystem();
 			break;
 		}
+		case "e":
 		case "echo": {
 			System.out.println(RebelParams.stringify());
 			break;
@@ -50,6 +51,7 @@ public class Runner {
 			RebelParams.set(c[1], c[2]);
 			break;
 		}
+		case "g":
 		case "go":{
 			rsys.go();
 			break;
@@ -69,12 +71,24 @@ public class Runner {
 			rsys.step();
 			break;
 		}
+		case "h":
 		case "help":{
 			//TODO print useful messages
+			System.out.println("SWEN90004 Rebellion Model");
+			System.out.println("Help information");
+			System.out.println("help(h):\t\tPrints the help message.");
+			System.out.println("initialize(i,init):\tInitializes the system with current parameters.");
+			System.out.println("display(d):\t\tDisplays the current system.");
+			System.out.println("set <param_name> <value>:Changes the value for a parameter.");
+			System.out.println("echo(e):\t\tPrints the current parameters for the model.");
+			System.out.println("step(s):\t\tUpdate the current system with one tick.");
+			System.out.println("go(g):\t\t\tRuns the system infinitely. Type go again to stop.");
+			System.out.println("chooseone(c):\t\tRandomly select an Agent and displays his status specially");
+			System.out.println("quit(exit,q):\t\tsave and quite the system.");
 			break;
 		}
 		default: {
-			System.out.println("Unrecognized command \"" + c[0] + "\"");
+			System.out.println("Unrecognized command \"" + c[0] + "\".Try \"help\" for some help information.");
 		}
 		}
 	}

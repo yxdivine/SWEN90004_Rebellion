@@ -43,6 +43,15 @@ public class MapSlot {
 				return "C";
 			} else if (content.get(0).getClass().equals(Agent.class)) {
 				Agent a = (Agent) content.get(0);
+				if(a.chosen){
+					if (a.isActive()) {
+						return "O";
+					} else if (a.imprisoned()) {
+						return "ø";
+					} else {
+						return "•";
+					}
+				}
 				if (a.isActive()) {
 					return "A";
 				} else if (a.imprisoned()) {
