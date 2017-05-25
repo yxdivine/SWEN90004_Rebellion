@@ -31,7 +31,10 @@ public class RebelParams {
 
 	// map size
 	public static int map_size = 40;
-
+	/**
+	 * prints the parameters
+	 * @return
+	 */
 	public static String stringify() {
 		String str = "params:\n";
 		str += "map_size\t" + map_size + "\n";
@@ -46,7 +49,11 @@ public class RebelParams {
 
 		return str;
 	}
-
+	/**
+	 * change a parameter according to command
+	 * @param arg
+	 * @param val
+	 */
 	public static void set(String arg, String val) {
 		switch (arg) {
 		case "k": {

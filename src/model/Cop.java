@@ -10,11 +10,17 @@ import java.util.List;
  *
  */
 public class Cop extends Turtle {
-
+	/**
+	 * construct a cop with references to map and its slot
+	 * @param mapref
+	 * @param slotref
+	 */
 	public Cop(RebelMap mapref, MapSlot slotref) {
 		super(mapref, slotref);
 	}
-
+	/**
+	 * move the cop to another slot within its vision range
+	 */
 	@Override
 	public void move() {
 		MapSlot s = mapref.findAEmpty(slotref.getX(), slotref.getY());
@@ -25,7 +31,9 @@ public class Cop extends Turtle {
 			this.slotref = s;
 		}
 	}
-
+	/**
+	 * arrest a random active agent in sight
+	 */
 	public void enforce() {
 		List<Turtle> a = mapref.checkVision(slotref);
 		Collections.shuffle(a);
@@ -40,11 +48,8 @@ public class Cop extends Turtle {
 				}
 			}
 		}
-		// System.out.println("no one caught");
+		// System.out.println("nobody is caught");
 	}
 
-	protected void init() {
-
-	}
 
 }

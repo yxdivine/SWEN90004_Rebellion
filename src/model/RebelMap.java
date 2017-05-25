@@ -11,20 +11,27 @@ import java.util.List;
  *
  */
 public class RebelMap {
+	//The container to store the map slots
 	private List<MapSlot> rmap;
+	//The full list of agents
 	private List<Agent> agents;
+	//The full list of cops
 	private List<Cop> cops;
-
+	//The side length of the map
 	public int mapsize = RebelParams.map_size;
-
+	//The area of the map
 	int map_area = mapsize * mapsize;
-
+	//The total number of cops on the map
 	private int num_cops = (int) (RebelParams.init_cop_dens * map_area);
+	//The total number of agents on the map
 	private int num_agents = (int) (RebelParams.init_agent_dens * map_area);
+	//The number of empty slots at the beginning
 	private int num_empty = map_area - num_cops - num_agents;
-
+	//stores reference to the chosen agent
 	private Agent chosen;
-
+	/**
+	 * construct the map
+	 */
 	public RebelMap() {
 		if (num_cops + num_agents < map_area) {
 			initMap();
@@ -35,11 +42,14 @@ public class RebelMap {
 		printMap();
 
 	}
-
+	/**
+	 * initializes the variables
+	 */
 	private void initMap() {
 		rmap = new ArrayList<MapSlot>(map_area);
 		agents = new ArrayList<Agent>(num_agents);
 		cops = new ArrayList<Cop>(num_cops);
+		//add slots with agent
 		for (int i = 0; i < num_agents; i++) {
 			MapSlot ms = new MapSlot();
 			Agent a = new Agent(this, ms);
@@ -47,7 +57,7 @@ public class RebelMap {
 			rmap.add(ms);
 			agents.add(a);
 		}
-
+		//add slots with cop
 		for (int i = 0; i < num_cops; i++) {
 			MapSlot ms = new MapSlot();
 			Cop c = new Cop(this, ms);
@@ -55,12 +65,12 @@ public class RebelMap {
 			rmap.add(ms);
 			cops.add(c);
 		}
-
+		//add empty slots
 		for (int i = 0; i < num_empty; i++) {
 			MapSlot ms = new MapSlot();
 			rmap.add(ms);
 		}
-
+		//shuffles the map and fix the positions of the slots
 		Collections.shuffle(rmap);
 		// slot position fixed at this time.
 		for (int y = 0; y < mapsize; y++) {
@@ -69,7 +79,9 @@ public class RebelMap {
 			}
 		}
 	}
-
+	/**
+	 * print the visualized map
+	 */
 	public void printMap() {
 		for (int i = 0; i < rmap.size(); i++) {
 			System.out.print(rmap.get(i).symbol() + "  ");
@@ -78,15 +90,23 @@ public class RebelMap {
 			}
 		}
 	}
-
+	/**
+	 * choose a agent to observe its behaviours
+	 */
 	public void choose_one() {
 		int i = (int) (Math.random() * num_agents);
 		chosen = agents.get(i);
 		chosen.setChosen();
 	}
-
+	/**
+	 * update the behaviours of all turtles
+	 * called each tick
+	 */
 	public void update() {
-		// move
+		//randomize the sequence to call the turtles to stick to netlogo impl
+		Collections.shuffle(agents);
+		Collections.shuffle(cops);
+		// move turtles
 		for (int i = 0; i < agents.size(); i++) {
 			Agent a = agents.get(i);
 			a.move();
@@ -96,7 +116,7 @@ public class RebelMap {
 			// move cop c
 			c.move();
 		}
-		// determine behaviour
+		// determine behaviour of agents
 		for (int i = 0; i < agents.size(); i++) {
 			Agent a = agents.get(i);
 			if(!a.imprisoned()){
@@ -114,16 +134,19 @@ public class RebelMap {
 			Agent a = agents.get(i);
 			a.reduce_term();
 		}
-		Collections.shuffle(agents);
-		Collections.shuffle(cops);
 	}
-
+	/**
+	 * find an available slot around the given slot
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public MapSlot findAEmpty(int x, int y) {
 		// vision range
 		double vr = RebelParams.vision;
 		ArrayList<MapSlot> vlist = new ArrayList<MapSlot>();
-
-		// special case for dx = 0
+		//The vision is a round area. Traverse nearby slots depth-first
+		// special case for dx = 0.
 		for (int dy = 1; dy <= vr; dy++) {
 			MapSlot ms = slotAt(x, y + dy);
 			if (ms.isMoveable()) {
@@ -167,7 +190,7 @@ public class RebelMap {
 				}
 			}
 		}
-
+		
 		Collections.shuffle(vlist);
 		if(vlist.isEmpty()){
 			return null;
@@ -177,14 +200,18 @@ public class RebelMap {
 		
 
 	}
-
+	/**
+	 * returns all the turtles within the vision of the given slot ms
+	 * @param ms the given slot
+	 * @return the list of turtles
+	 */
 	public List<Turtle> checkVision(MapSlot ms) {
 		int y = ms.getY();
 		int x = ms.getX();
 		// vision range
 		double vr = RebelParams.vision;
 		ArrayList<Turtle> vlist = new ArrayList<Turtle>();
-
+		//traverse and store nearby slots depth-first
 		// add the dots with same x axis without itself, (0,1),(0,2),... (0,vr)
 		// special case for dx = 0
 		for (int dy = 1; dy <= vr; dy++) {
@@ -209,8 +236,14 @@ public class RebelMap {
 
 	}
 
-	// get the object at the spot x,y. range of x & y are 0-39
+	/**
+	 * get the object at the spot x,y. range of x & y are 0-39
+	 * @param x
+	 * @param y
+	 * @return the turtles at (x,y)
+	 */
 	public List<Turtle> get(int x, int y) {
+		//folds the coordinates
 		int x1 = x % mapsize;
 		int y1 = y % mapsize;
 		if (x1 < 0) {
@@ -223,7 +256,12 @@ public class RebelMap {
 		MapSlot ms = rmap.get(y1 * mapsize + x1);
 		return ms.getAll();
 	}
-
+	/**
+	 * returns the slot at given position
+	 * @param x
+	 * @param y
+	 * @return the slot at (x,y)
+	 */
 	public MapSlot slotAt(int x, int y) {
 		int x1 = x % mapsize;
 		int y1 = y % mapsize;
@@ -235,7 +273,10 @@ public class RebelMap {
 		}
 		return rmap.get(y1 * mapsize + x1);
 	}
-	
+	/**
+	 * return the current status of agents
+	 * @return the string of status to print to output
+	 */
 	public String recordData(){
 		int jailed = 0;
 		int quiet = 0;

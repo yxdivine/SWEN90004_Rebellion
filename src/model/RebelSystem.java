@@ -10,10 +10,19 @@ import java.io.PrintWriter;
  *
  */
 public class RebelSystem {
+	//the current time of the world
 	protected int tick = 0;
+	//runs the world infinitely
 	boolean running;
+	//reference to the map
 	RebelMap map;
+	//handle to print log
 	protected static PrintWriter w;
+	/**
+	 * constructs the system with initialized params and 
+	 * open the file handle
+	 * 
+	 */
 	public RebelSystem() {
 		map = new RebelMap();
 		tick = 0;
@@ -24,25 +33,33 @@ public class RebelSystem {
 		}
 
 	}
-
+	/**
+	 * run the world for one tick
+	 */
 	public void step() {
 		//
 		if (!running) {
 			update();
 		}
 	}
-
+	/**
+	 * update the map
+	 */
 	public void update() {
 		map.update();
 		tick++;
 		w.println(map.recordData());
 	}
-	
+	/** 
+	 * close and save log file
+	 */
 	public void closeIO(){
 		w.close();
 		running = false;
 	}
-	
+	/**
+	 * runs the world continuously on a thread.
+	 */
 	public void go() {
 		if (!running) {
 			running = true;
@@ -59,12 +76,16 @@ public class RebelSystem {
 			running = false;
 		}
 	}
-
+	/**
+	 * display the visualized map
+	 */
 	public void display() {
 		map.printMap();
 		System.out.println("tick:"+tick);
 	}
-
+	/** 
+	 * choose one agent to observe
+	 */
 	public void chooseone() {
 		map.choose_one();
 	}
